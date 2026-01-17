@@ -1,10 +1,11 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const { chats } = require('./data/data');
-// import express from 'express';
+const connectDB = require('./config/db.config');
 
 const app = express();
 dotenv.config();
+connectDB();
 
 app.get('/', (req, res) => {
     res.send("API is running.");
@@ -20,4 +21,6 @@ app.get('/api/chats/:id', (req,res) =>{
 })
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, console.log("Listening on port number 5000"));
+app.listen(PORT, () => {
+    console.log(`Listening on port ${PORT}`);
+});
