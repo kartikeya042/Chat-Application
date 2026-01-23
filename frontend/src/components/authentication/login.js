@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { toaster } from "../ui/toaster";
 import {
   Button,
   Field,
@@ -8,14 +9,48 @@ import {
   Stack,
 } from "@chakra-ui/react"
 import { PasswordInput } from "../ui/password-input";
+import axios from 'axios';
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const Login = () =>{
-        // const [name, setName] = useState("")
         const [email, setEmail] = useState("")
         const [password, setPassword] = useState("")
-        // const [confirmPassword, setConfirmPasssword] = useState("")
-        // const [profilePicture, setProfilePicture] = useState("")
-        const submitHandler = () =>{}
+        const [loading, setLoading] = useState(false);
+        const history = useHistory();
+
+        const submitHandler = async () => {
+            setLoading(true);
+            if(!email || !password){
+                toaster.create({
+                    title: 'Please fill all the fields.',
+                    status: 'warning',
+                });
+                setLoading(false);
+                return;
+            }
+            try{
+                const config = {
+                    headers: {
+                        "Content-type": "application/json",
+                    },
+                };
+                const { data } = await axios.post('/api/user/login', {email, password}, config);
+                toaster.create({
+                    title: "Login Successful",
+                    status: "success"
+                });
+                localStorage.setItem('userInfo', JSON.stringify(data));
+                setLoading(false);
+                history.push('/chats');
+            } catch(err){
+                toaster.create({
+                    title: 'Error Occured!',
+                    status: 'error',
+                    description: err.response?.data?.message || 'Something went wrong',
+                });
+                setLoading(false);
+            }
+        }
     return (
             <Fieldset.Root size="lg" maxW="md" >
                 <Stack>
@@ -73,7 +108,7 @@ const Login = () =>{
     
                 </Fieldset.Content>
     
-                <Button type="submit" alignSelf="flex-start" borderColor={"black"} background={"black"} color={"white"} onClick={submitHandler}>
+                <Button type="submit" alignSelf="flex-start" borderColor={"black"} background={"black"} color={"white"} width = {"full"} onClick={submitHandler} isLoading={loading}>
                     Submit
                 </Button>
             </Fieldset.Root>

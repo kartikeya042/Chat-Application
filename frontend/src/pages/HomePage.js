@@ -1,6 +1,6 @@
 import React from "react";
 import { Tabs, Box, Container, Text } from '@chakra-ui/react';
-import { LuFolder, LuSquareCheck, LuUser } from "react-icons/lu";
+import { LuUser } from "react-icons/lu";
 import Login from "../components/authentication/login";
 import SignUp from "../components/authentication/signup";
 
