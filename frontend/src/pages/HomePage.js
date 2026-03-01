@@ -5,6 +5,16 @@ import Login from "../components/authentication/login";
 import SignUp from "../components/authentication/signup";
 
 const HomePage = () => {
+    const [user, setUser] = useState();
+    
+        const history = useHistory();
+        useEffect(() => {
+            const user = JSON.parse(localStorage.getItem("userInfo"));
+    
+            if(user){
+                history.push('/chats')
+            }
+        },[history])
     return (
         <Container maxW={"xl"} centerContent>
             <Box

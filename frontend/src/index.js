@@ -4,14 +4,17 @@ import './index.css';
 import App from './App';
 import { Provider } from "./components/ui/provider"
 import {BrowserRouter} from "react-router-dom"
+import ChatProvider from "./context/chatContext"
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  <ChatProvider>
     <BrowserRouter>
     <Provider>
       <App />
     </Provider>
     </BrowserRouter>
+  </ChatProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
