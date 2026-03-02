@@ -1,10 +1,12 @@
-import { Children, createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const ChatContext = createContext()
 
-const ChatProvider = ((Children)=>{
+const ChatProvider = ({children}) =>{
     const [user, setUser] = useState();
+    const [selectedChat, setSelectedChat] = useState()
+    const [chats, setChats] = useState()
 
     const history = useHistory();
     useEffect(() => {
@@ -15,8 +17,8 @@ const ChatProvider = ((Children)=>{
             history.push('/')
         }
     },[history])
-    return <ChatContext.Provider value={{user, setUser}}>{Children}</ChatContext.Provider>
-})
+    return <ChatContext.Provider value={{user, setUser, selectedChat, setSelectedChat, chats, setChats}}>{children}</ChatContext.Provider>
+}
 
 export const ChatState = () => {
     return useContext(ChatContext);

@@ -29,9 +29,8 @@ const SignUp = () => {
             if (pic === undefined) {
                 toaster.create({
                     title: "Please select an Image!",
-                    status: "warning",
+                    type: "warning",
                     duration: 5000,
-                    isClosable: true,
                 });
                 resolve(null);
                 return;
@@ -55,14 +54,14 @@ const SignUp = () => {
                         console.log(err);
                         toaster.create({
                             title: 'Error uploading image',
-                            status: 'error',
+                            type: 'error',
                         });
                         resolve(null);
                     })
             } else {
                 toaster.create({
                     title: `Please Select an Image!`,
-                    status: "warning",
+                    type: "warning",
                 })
                 resolve(null);
             }
@@ -74,7 +73,7 @@ const SignUp = () => {
         if (!name || !email || !password || !confirmPassword) {
             toaster.create({
                 title: `Please fill all the fields.`,
-                status: "warning",
+                type: "warning",
             });
             setLoading(false);
             return;
@@ -82,7 +81,7 @@ const SignUp = () => {
         if (password !== confirmPassword) {
             toaster.create({
                 title: "Password and Confirm Password do not match",
-                status: "error",
+                type: "error",
             })
             setLoading(false);
             return;
@@ -110,7 +109,7 @@ const SignUp = () => {
             const { data } = await axios.post('/api/user', { name, email, password, pic }, config);
             toaster.create({
                 title: "Registration Successful",
-                status: "success"
+                type: "success"
             });
 
             localStorage.setItem('userInfo', JSON.stringify(data));
@@ -119,7 +118,7 @@ const SignUp = () => {
         } catch (err) {
             toaster.create({
                 title: 'Error Occured!',
-                status: 'error',
+                type: 'error',
                 description: err.response?.data?.message || 'Something went wrong',
             });
             setLoading(false);
@@ -186,7 +185,7 @@ const SignUp = () => {
 
             </Fieldset.Content>
 
-            <Button type="submit" alignSelf="flex-start" borderColor={"black"} background={"black"} color={"white"} width={'full'} onClick={submitHandler} isLoading={loading}>
+            <Button type="submit" alignSelf="flex-start" borderColor={"black"} background={"black"} color={"white"} width={'full'} onClick={submitHandler} loading={loading}>
                 Submit
             </Button>
         </Fieldset.Root>

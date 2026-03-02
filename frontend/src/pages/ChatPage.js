@@ -1,33 +1,26 @@
-import React, { useEffect, useState } from "react";
-import axios from 'axios';
+import React from "react";
+import { ChatState } from "../context/chatContext";
+import { Box } from "@chakra-ui/react";
+import SideDrawer from "../components/miscellaneous/SideDrawer"
+import ChatBox from "../components/miscellaneous/ChatBox"
+import MyChats from "../components/miscellaneous/MyChats"
+// ...existing code...
 
 const ChatPage = () => {
-    const [chats, setChats] = useState([])
-
-    useEffect(() => {
-        axios.get('/api/chats')
-            .then(response => {
-                setChats(response.data)
-            })
-            .catch((error) => {
-                console.error(`Could not fetch data from the backend: ${error}`);
-            })
-    }, []);
-
-
-    return (
-        <div>
-            {chats.length === 0 ? (<p>No chats yet.</p>)
-                :
-                (chats.map((chat) => (
-                    <div key={chat._id}>
-                        <strong>{chat.chatName ?? 'unknown'}</strong>
-                    </div>
-                ))
-                )}
-        </div>
-    );
-
+    const {user} = ChatState();
+    return (<div style={{width: '100%'}}>
+        {user && <SideDrawer/>}
+        <Box
+            display={"flex"}
+            justifyContent={"space-between"}
+            w={'100%'}
+            h={'91.5vh'}
+            p={'10px'}
+            >
+            {user && <MyChats/>}
+            {user && <ChatBox/>}
+        </Box>
+    </div>)
 }
 
 export default ChatPage;

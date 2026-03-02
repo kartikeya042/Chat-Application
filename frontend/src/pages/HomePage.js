@@ -3,9 +3,11 @@ import { Tabs, Box, Container, Text } from '@chakra-ui/react';
 import { LuUser } from "react-icons/lu";
 import Login from "../components/authentication/login";
 import SignUp from "../components/authentication/signup";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useEffect } from "react";
 
 const HomePage = () => {
-    const [user, setUser] = useState();
+    // const [user, setUser] = useState();
     
         const history = useHistory();
         useEffect(() => {
@@ -18,7 +20,7 @@ const HomePage = () => {
     return (
         <Container maxW={"xl"} centerContent>
             <Box
-                d='flex'
+                display='flex'
                 justifyContent={"center"}
                 alignItems={"center"}
                 p={3}
@@ -39,8 +41,8 @@ const HomePage = () => {
                 borderRadius={"lg"}
                 borderWidth={"1px"}
             >
-                <Tabs.Root defaultValue="members" variant="enclosed" color={"black"}>
-                    <Tabs.List bg="blackAlpha.200" rounded="l3" p="1" width={"100%"} >
+                <Tabs.Root defaultValue="Login" variant="enclosed" color={"black"}>
+                    <Tabs.List bg="black/20" rounded="l3" p="1" width={"100%"} >
                         <Tabs.Trigger value="Login" width={"50%"} >
                             <LuUser />
                             Login

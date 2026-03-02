@@ -23,7 +23,7 @@ const Login = () =>{
             if(!email || !password){
                 toaster.create({
                     title: 'Please fill all the fields.',
-                    status: 'warning',
+                    type: 'warning',
                 });
                 setLoading(false);
                 return;
@@ -37,7 +37,7 @@ const Login = () =>{
                 const { data } = await axios.post('/api/user/login', {email, password}, config);
                 toaster.create({
                     title: "Login Successful",
-                    status: "success"
+                    type: "success"
                 });
                 localStorage.setItem('userInfo', JSON.stringify(data));
                 setLoading(false);
@@ -45,7 +45,7 @@ const Login = () =>{
             } catch(err){
                 toaster.create({
                     title: 'Error Occured!',
-                    status: 'error',
+                    type: 'error',
                     description: err.response?.data?.message || 'Something went wrong',
                 });
                 setLoading(false);
@@ -108,7 +108,7 @@ const Login = () =>{
     
                 </Fieldset.Content>
     
-                <Button type="submit" alignSelf="flex-start" borderColor={"black"} background={"black"} color={"white"} width = {"full"} onClick={submitHandler} isLoading={loading}>
+                <Button type="submit" alignSelf="flex-start" borderColor={"black"} background={"black"} color={"white"} width = {"full"} onClick={submitHandler} loading={loading}>
                     Submit
                 </Button>
             </Fieldset.Root>
