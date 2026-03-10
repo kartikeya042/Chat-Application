@@ -6,6 +6,7 @@ import axios from "axios";
 import ChatLoading from "./ChatLoading";
 import { getSender } from "../../config/ChatLogics";
 import { MdAdd } from "react-icons/md";
+import GroupChatModal from "../miscellaneous/GroupChatModal";
 
 const MyChats = () => {
     const [loggedUser, setLoggedUser] = useState();
@@ -59,16 +60,19 @@ const MyChats = () => {
                 color={'black'}
             >
                 My Chats
+                <GroupChatModal>
+
                 <Button
                     display={'flex'}
                     fontSize={{ base: '17px', md: '10px', lg: '17px' }}
                     bg={'black'}
                     color={'white'}
                     size={'sm'}
-                >
+                    >
                     <MdAdd />
                     New Group Chat
                 </Button>
+                </GroupChatModal>
             </Box>
 
             {/* Chat List */}
