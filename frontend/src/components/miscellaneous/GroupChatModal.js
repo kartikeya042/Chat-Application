@@ -31,7 +31,7 @@ const GroupChatModal = ({ children, isOpen: isOpenProp, onClose }) => {
         try {
             setLoading(true);
             const config = { headers: { Authorization: `Bearer ${user.token}` } };
-            const { data } = await axios.get(`/api/user?search=${query}`, config);
+            const { data } = await axios.get(`/api/user?search=${search}`, config);
             setLoading(false);
             setSearchResult(data);
         } catch (error) {
@@ -132,7 +132,7 @@ const GroupChatModal = ({ children, isOpen: isOpenProp, onClose }) => {
                             )}
                             {/* Search results */}
                             {loading ? (
-                                <ChatLoading />
+                                <div>loading</div>
                             ) : (
                                 searchResult.slice(0, 4).map((u) => (
                                     <UserListItem
