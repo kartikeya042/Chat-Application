@@ -6,6 +6,7 @@ import axios from "axios";
 import { ChatState } from "../../context/chatContext";
 import { getSender, getSenderFull } from "../../config/ChatLogics";
 import ProfileDialog from "./ProfileDialog";
+import UpdateGroupChatModal from "./UpdateGroupChatModal";
 import { toaster } from "../ui/toaster";
 
 const ChatBox = () => {
@@ -123,6 +124,9 @@ const ChatBox = () => {
                         </Text>
                         {!selectedChat.isGroupChat && (
                             <ProfileDialog user={getSenderFull(user, selectedChat.users)} />
+                        )}
+                        {selectedChat.isGroupChat && (
+                            <UpdateGroupChatModal fetchMessages={fetchMessages} />
                         )}
                     </Box>
 
